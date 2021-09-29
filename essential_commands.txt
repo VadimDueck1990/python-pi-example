@@ -1,0 +1,109 @@
+Essential Linux commands
+
+change ownership of file:  	chown
+chown -R user:group file.txt
+change permissions of file:	chmod 644(6 = rw; 4 = r)
+
+Recursive: chmod -R 664 file.txt(owner:group:public)
+
+Change move and copy files
+
+Copy a file:
+cp file.txt ./mydir/file2.txt
+
+Remove a file:
+rm file.txt
+
+Remove all with name "file":
+rm ./mydir/file.*
+
+Remove all ".txt" files:
+rm ./mydir/*.txt
+
+Remove every file from directory:
+rm ./mydir/*
+
+Remove every file in directory and directory as well:
+rm -rf ./mydir
+
+Move a file:
+mv file.txt ./mydir
+
+Create a file:
+touch text.txt
+
+Find
+
+find all .php files in current directory(case sensitive)
+find . -type -f -name "*.php"
+
+find all .php files in current directory(ignore case)
+find . -type -f -iname "*.php"
+
+find all files with permission 664
+find . -type f perm 664
+
+find all files smaller or bigger than 1kb
+find . -type f -size +-1
+
+find all files that are NOT .php
+find . -type f -not -iname "*.php"
+
+find all files with searchdepth 2 with ending "*.conf"
+find . -maxdepth 2 -type f -iname "*.conf"
+
+GREP
+
+search for "function" in "another.php"
+grep "function" another.php
+
+search for "function" in all files (ignore case)
+grep -i "function" ./*
+
+search for "function" in all files (ignore case and show line number)
+grep -n -i "function" ./*
+
+find all php files and search in result for "function"
+find . -type f -iname "*.php" -exec grep -n -i "function" {} +
+
+find all php files and search in result for "sandwich" then safe result in output.txt
+find .  -type f -size -10k -iname "*.php" -exec grep -i -n "Sandwich" {} + > output.txt
+
+find all php files and search in result for "sandwich" then safe result in output.txt and show result
+find . -type f size -10k -iname "*.php" -exec grep -i -n "Sandwich" {} + | tee of output.txt
+
+PROCESSES
+
+show the top processes realtime
+top
+
+show all processes:
+ps aux
+
+list processes with name "firefox"
+ps aux | grep firefox
+
+list process ids with name "firefox"
+pgrep firefox
+
+kill process with id 2233
+kill -9 2233
+
+kill all processes with name "firefox"
+killall firefox
+
+SERVICES
+
+start and stop a service called "elasticsearch"
+sudo service elasticsearch start
+sudo service elasticsearch stop
+
+another newer way of starting and stopping service
+sudo systemctl start elasticsearch
+
+CRONTAB
+
+installing a new crontab to add scheduled task
+crontab -e
+or
+sudo crontab -e
